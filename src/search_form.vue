@@ -13,6 +13,18 @@
         }'
         :value='rubric'
       />
+      <Select
+        :options='{
+          flats: "Квартиры",
+          rooms: "Комнаты",
+          cottage: "Коттеджи",
+          commercial: "Коммерческая",
+          dacha: "Дачи, садовые участки",
+          land: "Земля",
+          garages: "Гаражи, парковки"
+        }'
+        :value='rubric'
+      />
       <!--Select
         name='rooms'
         :options='{

@@ -10,6 +10,7 @@
         {{ options[value] }}
       </button>
     </div>
+    <div v-if='isExpanded' class='shade' @click='blurAndCollapse' />
   </div>
 </template>
 
@@ -34,6 +35,10 @@ export default {
     },
     blur() {
       this.isFocused = false;
+    },
+    blurAndCollapse() {
+      this.isFocused = false;
+      this.isExpanded = false;
     }
   }
 };
@@ -41,8 +46,6 @@ export default {
 
 <style lang='sass'>
 .n1-select
-  position: relative
-
   &:first-child
     .outline
       border-top-left-radius: 5px
@@ -64,12 +67,8 @@ export default {
   &.expanded .label:before
     transform: translateY(-50%) rotate(180deg)
 
-.outline
-  border: 3px solid transparent
-
-  &.focused
-    border-color: #b3ddff
-    background: #b3ddff
+.n1-select + .n1-select .label
+  border-left: none
 
 .label
   background: #fff
@@ -92,11 +91,24 @@ export default {
     height: 20px
     position: absolute
     right: 8px
+    top: 50%
     transform: translateY(-50%)
     transition: transform 0.25s ease
-    top: 50%
     width: 20px
 
-.n1-select + .n1-select
-  border-left: none
+.outline
+  border: 3px solid transparent
+
+  &.focused
+    border-color: #b3ddff
+    background: #b3ddff
+
+.shade
+  background: transparent
+  height: 100%
+  left: 0
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 11
 </style>
