@@ -42,7 +42,7 @@ export default object({
   is_newbuilding: boolean().nullable(), // TODO: Уточнить тип,
   rent_period: string().oneOf(['day', 'month']),
   include_suburbs: boolean().default(true),
-  type: array(string()), // TODO: Уточнить тип
+  type: array(string()).oneOf(['studio', 'free']), // TODO: Уточнить тип
   house_type: array(string()), // TODO: Уточнить тип
   purposes: array(string()), // TODO: Уточнить тип
   has_balcony: boolean(),
