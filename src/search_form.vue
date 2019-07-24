@@ -1,29 +1,32 @@
 <template>
   <div class='n1-search-form'>
-    <Select
-      name='rubric'
-      :options='{
-        flats: "Квартиры",
-        rooms: "Комнаты",
-        cottage: "Коттеджи",
-        commercial: "Коммерческая",
-        dacha: "Дачи, садовые участки",
-        land: "Земля",
-        garages: "Гаражи, парковки"
-      }'
-    />
-    <!--Select
-      name='rooms'
-      :options='{
-        studio: "Студия",
-        1: "1-комнатная",
-        2: "2-комнатная",
-        3: "3-комнатная",
-        4: "4-комнатная",
-        "5+": "5-комнатная и более",
-        free: "Свободная планировка"
-      }'
-    /-->
+    <div class='basic-params'>
+      <Select
+        name='rubric'
+        :options='{
+          flats: "Квартиры",
+          rooms: "Комнаты",
+          cottage: "Коттеджи",
+          commercial: "Коммерческая",
+          dacha: "Дачи, садовые участки",
+          land: "Земля",
+          garages: "Гаражи, парковки"
+        }'
+      />
+      <!--Select
+        name='rooms'
+        :options='{
+          studio: "Студия",
+          1: "1-комнатная",
+          2: "2-комнатная",
+          3: "3-комнатная",
+          4: "4-комнатная",
+          "5+": "5-комнатная и более",
+          free: "Свободная планировка"
+        }'
+      /-->
+    </div>
+    <button class='submit' @click='search'>Показать</button>
   </div>
 </template>
 
@@ -61,6 +64,11 @@ export default {
   },
   mounted() {
     console.log(this.rubric);
+  },
+  methods: {
+    search() {
+      this.$emit('search', schema.cast(this.$data));
+    }
   }
 };
 </script>
@@ -68,5 +76,26 @@ export default {
 <style lang='sass'>
 .n1-search-form
   font-family: PT Sans
+
+.basic-params
   display: flex
+
+.submit
+  background: #c03c40
+  border-radius: 3px
+  border: 1px solid #c03c40
+  box-sizing: border-box
+  color: #fff
+  font-size: 17px
+  line-height: 20px
+  line-height: 36px
+  min-width: 159px
+  padding: 0 18px
+  text-align: center
+
+  &:hover
+    background: #d94348
+
+  &:active
+    background: #c03c40
 </style>

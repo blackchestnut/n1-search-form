@@ -1,7 +1,10 @@
 <template>
   <div id='app'>
     <div class='inner'>
-      <SearchForm :params='params' />
+      <SearchForm
+        :params='params'
+        @search='search'
+      />
     </div>
   </div>
 </template>
@@ -16,7 +19,12 @@ export default {
   },
   data: () => ({
     params: {}
-  })
+  }),
+  methods: {
+    search(params) {
+      console.log('search', params);
+    }
+  }
 };
 </script>
 
@@ -31,10 +39,7 @@ html
   font-size: 16px
 
 #app
-  background-image: url("https://novosibirsk.n1.ru/static/content/banners/1054/novosibirsk-02.jpg")
-  background-position-x: 50%
-  background-repeat: no-repeat
-  background-size: cover
+  background: #f1f1f1
   height: 360px
   padding: 264px 60px 0
 
