@@ -1,5 +1,5 @@
 <template>
-  <div class='n1-select' :class='{ expanded: isExpanded }'>
+  <div class='select' :class='{ expanded: isExpanded }'>
     <div class='outline' :class='{ focused: isFocused || isExpanded }'>
       <button
         class='label'
@@ -10,15 +10,25 @@
         {{ options[value] }}
       </button>
     </div>
-    <div v-if='isExpanded' class='shade' @click='blurAndCollapse' />
+    <div v-if='isExpanded' class='options'>
+      <SelectItem
+        v-for='(optionValue, optionKey) in options'
+        :key='optionKey'
+        :label='optionValue'
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import SelectItem from './item';
+
 export default {
-  name: 'N1Select',
+  name: 'Select',
+  components: {
+    SelectItem
+  },
   props: {
-    name: { type: String, required: true },
     options: { type: Object, required: true },
     value: { type: String, required: false, default: undefined }
   },
@@ -35,17 +45,15 @@ export default {
     },
     blur() {
       this.isFocused = false;
-    },
-    blurAndCollapse() {
-      this.isFocused = false;
-      this.isExpanded = false;
     }
   }
 };
 </script>
 
-<style lang='sass'>
-.n1-select
+<style scoped lang='sass'>
+.select
+  position: relative
+
   &:first-child
     .outline
       border-top-left-radius: 5px
@@ -67,7 +75,7 @@ export default {
   &.expanded .label:before
     transform: translateY(-50%) rotate(180deg)
 
-.n1-select + .n1-select .label
+.select + .select .label
   border-left: none
 
 .label
@@ -84,7 +92,7 @@ export default {
   position: relative
 
   &:before
-    background-image: url('../assets/select/arrow.svg')
+    background-image: url('../../assets/select/arrow.svg')
     background-position: center
     background-repeat: no-repeat
     content: ''
@@ -103,12 +111,10 @@ export default {
     border-color: #b3ddff
     background: #b3ddff
 
-.shade
-  background: transparent
-  height: 100%
-  left: 0
-  position: fixed
-  top: 0
-  width: 100%
-  z-index: 11
+.options
+  background: #fff
+  border-radius: 4px
+  border: 1px solid #d9d9d9
+  position: absolute
+  padding: 5px 0
 </style>

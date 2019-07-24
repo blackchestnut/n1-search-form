@@ -29,6 +29,8 @@ export default {
 </script>
 
 <style lang='sass'>
+@import 'node_modules/reset-css/reset';
+
 *,
 *:before,
 *:after

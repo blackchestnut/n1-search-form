@@ -1,5 +1,5 @@
 <template>
-  <div class='n1-search-form'>
+  <div class='search-form'>
     <div class='basic-fields'>
       <Select
         :options='{
@@ -47,11 +47,11 @@
 <script>
 import Vue from 'vue';
 
-import Select from '@/components/select';
+import Select from '@/components/select/index';
 import schema from '@/lib/schema';
 
 export default {
-  name: 'N1SearchForm',
+  name: 'SearchForm',
   components: {
     Select
   },
@@ -82,8 +82,8 @@ export default {
 };
 </script>
 
-<style lang='sass'>
-.n1-search-form
+<style scoped lang='sass'>
+.search-form
   font-family: PT Sans
 
 .basic-fields
@@ -100,7 +100,6 @@ export default {
     box-sizing: border-box
     color: #fff
     font-size: 17px
-    line-height: 20px
     line-height: 36px
     min-width: 159px
     padding: 0 18px
@@ -112,4 +111,21 @@ export default {
 
     &:active
       background: #c03c40
+
+/deep/ button
+  padding: 0
+  appearance: button
+  background: none
+  border: 0
+  cursor: pointer
+  font-size: 100%
+  font: inherit
+  text-align: inherit
+  user-select: none
+
+  &:-moz-focusring
+    outline: none
+
+  &:focus
+    outline: none
 </style>
