@@ -41,9 +41,9 @@ html
 #app
   background: #f1f1f1
   height: 360px
-  padding: 264px 60px 0
+  padding: 264px 60px 12px
 
 .inner
-  max-width: 1256px
+  max-width: 906px
   margin: 0 auto
 </style>

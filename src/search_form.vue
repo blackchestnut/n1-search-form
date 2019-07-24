@@ -1,6 +1,6 @@
 <template>
   <div class='n1-search-form'>
-    <div class='basic-params'>
+    <div class='basic-fields'>
       <Select
         name='rubric'
         :options='{
@@ -26,7 +26,9 @@
         }'
       /-->
     </div>
-    <button class='submit' @click='search'>Показать</button>
+    <div class='controls'>
+      <button class='submit' @click='search'>Показать</button>
+    </div>
   </div>
 </template>
 
@@ -58,12 +60,7 @@ export default {
       Object
         .entries(newData)
         .forEach(entry => Vue.set(this.$data, entry[0], entry[1]));
-
-      console.log(this.rubric);
     }
-  },
-  mounted() {
-    console.log(this.rubric);
   },
   methods: {
     search() {
@@ -77,25 +74,30 @@ export default {
 .n1-search-form
   font-family: PT Sans
 
-.basic-params
+.basic-fields
+  display: flex
+  margin-bottom: 12px
+
+.controls
   display: flex
 
-.submit
-  background: #c03c40
-  border-radius: 3px
-  border: 1px solid #c03c40
-  box-sizing: border-box
-  color: #fff
-  font-size: 17px
-  line-height: 20px
-  line-height: 36px
-  min-width: 159px
-  padding: 0 18px
-  text-align: center
-
-  &:hover
-    background: #d94348
-
-  &:active
+  .submit
     background: #c03c40
+    border-radius: 3px
+    border: 1px solid #c03c40
+    box-sizing: border-box
+    color: #fff
+    font-size: 17px
+    line-height: 20px
+    line-height: 36px
+    min-width: 159px
+    padding: 0 18px
+    text-align: center
+    margin-left: auto
+
+    &:hover
+      background: #d94348
+
+    &:active
+      background: #c03c40
 </style>
