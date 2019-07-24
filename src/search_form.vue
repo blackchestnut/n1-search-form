@@ -2,7 +2,6 @@
   <div class='n1-search-form'>
     <div class='basic-fields'>
       <Select
-        name='rubric'
         :options='{
           flats: "Квартиры",
           rooms: "Комнаты",
@@ -12,6 +11,7 @@
           land: "Земля",
           garages: "Гаражи, парковки"
         }'
+        :value='rubric'
       />
       <!--Select
         name='rooms'
