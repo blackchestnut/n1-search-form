@@ -5,7 +5,7 @@
     @mouseover='focus'
     @blur='blur'
   >
-    {{ label }}
+    <slot />
   </button>
 </template>
 
@@ -14,7 +14,6 @@
 export default {
   name: 'SelectItem',
   props: {
-    label: { type: String, required: true },
     isBlurOnClick: { type: Boolean, required: false, default: false }
   },
   methods: {

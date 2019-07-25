@@ -22,7 +22,7 @@
           ["garages", "Гаражи, парковки"]
         ]'
       />
-      <ComboBox
+      <Combobox
         v-if='rubric === "commercial"'
         v-model='type'
         label='Тип помещения'
@@ -36,7 +36,7 @@
           ["ready_business", "Готовый бизнес"]
         ]'
       />
-      <ComboBox
+      <Combobox
         v-else
         v-model='rooms_type'
         label='Комнатность'
@@ -60,7 +60,7 @@
 <script>
 import Vue from 'vue';
 
-import ComboBox from '@/components/combo_box';
+import Combobox from '@/components/combobox';
 import Select from '@/components/select';
 
 import { cast } from '@/lib/schema';
@@ -68,7 +68,7 @@ import { cast } from '@/lib/schema';
 export default {
   name: 'SearchForm',
   components: {
-    ComboBox,
+    Combobox,
     Select
   },
   props: {

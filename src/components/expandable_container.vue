@@ -127,7 +127,7 @@ export default {
     color: #000
 
   &:before
-    background-image: url('../assets/select/arrow.svg')
+    background-image: url('../assets/expandable_arrow.svg')
     background-position: center
     background-repeat: no-repeat
     content: ''

@@ -5,21 +5,25 @@
     <ExpandableItem
       v-for='option in options'
       :key='option[0]'
-      :label='option[1]'
       @click='() => select(option[0])'
-    />
+    >
+      {{ option[1] }}
+      <Checkbox is-checked />
+    </ExpandableItem>
   </ExpandableContainer>
 </template>
 
 <script>
 import ExpandableContainer from '@/components/expandable_container';
 import ExpandableItem from '@/components/expandable_item';
+import Checkbox from '@/components/checkbox';
 
 export default {
   name: 'ComboBox',
   components: {
     ExpandableContainer,
-    ExpandableItem
+    ExpandableItem,
+    Checkbox
   },
   props: {
     label: { type: String, required: true },
@@ -35,4 +39,11 @@ export default {
 </script>
 
 <style scoped lang='sass'>
+.expandable-item
+  display: flex
+  align-items: center
+
+  .checkbox
+    margin-left: auto
+    padding-left: 12px
 </style>
