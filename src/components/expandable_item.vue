@@ -14,12 +14,15 @@
 export default {
   name: 'SelectItem',
   props: {
-    label: { type: String, required: true }
+    label: { type: String, required: true },
+    isBlurOnClick: { type: Boolean, required: false, default: false }
   },
   methods: {
     click() {
       this.$emit('click');
-      this.$el.blur();
+      if (this.isBlurOnClick) {
+        this.$el.blur();
+      }
     },
     focus() {
       this.$el.focus();

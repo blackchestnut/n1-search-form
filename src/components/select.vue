@@ -4,6 +4,7 @@
       v-for='option in options'
       :key='option[0]'
       :label='option[1]'
+      is-blur-on-click
       @click='() => select(option[0])'
     />
   </ExpandableContainer>
