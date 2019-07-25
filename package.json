@@ -11,6 +11,7 @@
   "main": "src/search_form",
   "dependencies": {
     "core-js": "^2.6.5",
+    "delay": "^4.3.0",
     "vue": "^2.6.10",
     "yup": "^0.27.0"
   },

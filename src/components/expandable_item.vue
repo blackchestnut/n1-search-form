@@ -1,5 +1,5 @@
 <template>
-  <button class='select-item' @mouseover='focus'>
+  <button class='expandable-item' @mouseover='focus' @blur='blur'>
     {{ label }}
   </button>
 </template>
@@ -13,13 +13,16 @@ export default {
   methods: {
     focus() {
       this.$el.focus();
+    },
+    blur() {
+      this.$root.$emit('expandable:blur');
     }
   }
 };
 </script>
 
 <style scoped lang='sass'>
-.select-item
+.expandable-item
   display: block
   line-height: 36px
   padding: 0 18px 0 12px

@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import delay from 'delay';
 
 export default {
   name: 'ExpandableContainer',
@@ -31,6 +32,12 @@ export default {
     isExpanded: false,
     isFocused: false
   }),
+  created() {
+    this.$root.$on('expandable:blur', this.expandableBlur);
+  },
+  beforeDestroy() {
+    this.$root.$off('expandable:blur', this.expandableBlur);
+  },
   methods: {
     toggle() {
       this.isExpanded = !this.isExpanded;
@@ -40,6 +47,17 @@ export default {
     },
     blur() {
       this.isFocused = false;
+      this.$root.$emit('expandable:blur');
+    },
+    async expandableBlur() {
+      if (!this.isExpanded && !this.isFocused) { return; }
+
+      await delay();
+
+      if (!this.$el.contains(document.activeElement)) {
+        this.isFocused = false;
+        this.isExpanded = false;
+      }
     }
   }
 };
@@ -103,10 +121,24 @@ export default {
   padding: 0 36px 0 12px
   position: relative
 
+  &:before
+    background-image: url('../assets/select/arrow.svg')
+    background-position: center
+    background-repeat: no-repeat
+    content: ''
+    height: 20px
+    position: absolute
+    right: 8px
+    top: 50%
+    transform: translateY(-50%)
+    transition: transform 0.25s ease
+    width: 20px
+
 .content
   background: #fff
   border-radius: 4px
   border: 1px solid #d9d9d9
-  position: absolute
+  margin-top: 6px
   padding: 5px 0
+  position: absolute
 </style>

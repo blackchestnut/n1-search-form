@@ -1,6 +1,6 @@
 <template>
   <ExpandableContainer :label='options[value]'>
-    <SelectItem
+    <ExpandableItem
       v-for='(optionValue, optionKey) in options'
       :key='optionKey'
       :label='optionValue'
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import SelectItem from './item';
 import ExpandableContainer from '@/components/expandable_container';
+import ExpandableItem from '@/components/expandable_item';
 
 export default {
   name: 'Select',
   components: {
     ExpandableContainer,
-    SelectItem
+    ExpandableItem
   },
   props: {
     options: { type: Object, required: true },
