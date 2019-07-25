@@ -41,7 +41,7 @@
         v-model='rooms_type'
         label='Комнатность'
         :options='[
-          ["studio", "Студия"],
+          ["studija", "Студия"],
           ["1", "1-комнатная"],
           ["2", "2-комнатная"],
           ["3", "3-комнатная"],
@@ -63,7 +63,7 @@ import Vue from 'vue';
 import Combobox from '@/components/combobox';
 import Select from '@/components/select';
 
-import { cast } from '@/lib/schema';
+import { cast, roomsType, typeType, layoutType } from '@/lib/schema';
 
 export default {
   name: 'SearchForm',
@@ -75,6 +75,7 @@ export default {
     params: { type: Object, required: true }
   },
   data() {
+    // NOTE: may be put params into data.params
     return cast(this.params);
   },
   computed: {
@@ -86,8 +87,10 @@ export default {
           ...this.layout_type
         ];
       },
-      set(values) {
-        console.log(values);
+      set(value) {
+        this.type = typeType.cast(value, { stripUnknown: true });
+        this.rooms = roomsType.cast(value, { stripUnknown: true });
+        this.layout_type = layoutType.cast(value, { stripUnknown: true });
       }
     }
   },
