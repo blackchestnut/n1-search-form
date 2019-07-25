@@ -11,7 +11,7 @@
           land: "Земля",
           garages: "Гаражи, парковки"
         }'
-        :value='rubric'
+        v-model='rubric'
       />
       <Select
         :options='{
@@ -23,7 +23,7 @@
           land: "Земля",
           garages: "Гаражи, парковки"
         }'
-        :value='rubric'
+        v-model='rubric'
       />
       <!--Select
         name='rooms'

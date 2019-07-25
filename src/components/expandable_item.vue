@@ -1,5 +1,10 @@
 <template>
-  <button class='expandable-item' @mouseover='focus' @blur='blur'>
+  <button
+    class='expandable-item'
+    @click='click'
+    @mouseover='focus'
+    @blur='blur'
+  >
     {{ label }}
   </button>
 </template>
@@ -11,6 +16,10 @@ export default {
     label: { type: String, required: true }
   },
   methods: {
+    click() {
+      this.$emit('click');
+      this.$el.blur();
+    },
     focus() {
       this.$el.focus();
     },
