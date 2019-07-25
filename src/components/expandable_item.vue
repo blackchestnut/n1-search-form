@@ -10,6 +10,7 @@
 </template>
 
 <script>
+// TODO: select next/prev ExpandableItem on up/down keypress
 export default {
   name: 'SelectItem',
   props: {

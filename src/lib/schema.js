@@ -44,7 +44,16 @@ export default object({
   include_suburbs: boolean().default(true),
   type: array(string()).oneOf(['studio', 'free']), // TODO: Уточнить тип
   house_type: array(string()), // TODO: Уточнить тип
-  purposes: array(string()), // TODO: Уточнить тип
+  purposes: array(string())
+    .oneOf([
+      'office',
+      'universal',
+      'shopping',
+      'storage',
+      'production',
+      'detached',
+      'business'
+    ]), // TODO: Уточнить тип
   has_balcony: boolean(),
   sewerage_type: string(),
   water_supply_type: string(),

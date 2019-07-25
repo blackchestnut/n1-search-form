@@ -2,6 +2,7 @@
   <div class='search-form'>
     <div class='basic-fields'>
       <Select
+        v-model='rubric'
         :options='{
           flats: "Квартиры",
           rooms: "Комнаты",
@@ -11,22 +12,23 @@
           land: "Земля",
           garages: "Гаражи, парковки"
         }'
-        v-model='rubric'
       />
-      <Select
+      <ComboBox
+        v-if='rubric === "commercial"'
+        v-model='rooms_type'
         :options='{
-          flats: "Квартиры",
-          rooms: "Комнаты",
-          cottage: "Коттеджи",
-          commercial: "Коммерческая",
-          dacha: "Дачи, садовые участки",
-          land: "Земля",
-          garages: "Гаражи, парковки"
+          office: "Офисное помещение",
+          universal: "Универсальное помещение",
+          shopping: "Торговые площади",
+          storage: "Складское помещение",
+          production: "Производственное помещение",
+          detached: "Отдельностоящее здание",
+          business: "Готовый бизнес"
         }'
-        v-model='rubric'
       />
-      <!--Select
-        name='rooms'
+      <ComboBox
+        v-else
+        v-model='rooms_type'
         :options='{
           studio: "Студия",
           1: "1-комнатная",
@@ -36,7 +38,7 @@
           "5+": "5-комнатная и более",
           free: "Свободная планировка"
         }'
-      /-->
+      />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
