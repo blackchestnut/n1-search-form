@@ -15,7 +15,7 @@ function oneOfOrDefault(value) {
 
 // const Polygon = array(GeoPoint).min(3);
 
-const RUBRIC_TYPES = {
+const TYPE_TYPES_BY_RUBRIC = {
   flats: ['studija'],
   commercial: [
     'office',
@@ -38,8 +38,8 @@ export const roomsType = array(string())
 export const typeType = array(string())
   .ensure()
   .when('rubric', (rubric, schema) => (
-    RUBRIC_TYPES[rubric] ?
-      schema.compact(v => RUBRIC_TYPES[rubric].includes(v)) :
+    TYPE_TYPES_BY_RUBRIC[rubric] ?
+      schema.compact(v => TYPE_TYPES_BY_RUBRIC[rubric].includes(v)) :
       schema
   ));
 
