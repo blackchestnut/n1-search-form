@@ -2,6 +2,15 @@
   <div class='search-form'>
     <div class='basic-fields'>
       <Select
+        v-model='deal_type'
+        :options='{
+          sell: "Продажа",
+          rent_out: "Аренда"
+        }'
+      />
+    </div>
+    <div class='basic-fields'>
+      <Select
         v-model='rubric'
         :options='{
           flats: "Квартиры",
@@ -15,20 +24,22 @@
       />
       <ComboBox
         v-if='rubric === "commercial"'
-        v-model='rooms_type'
+        v-model='type'
+        label='Тип помещения'
         :options='{
           office: "Офисное помещение",
           universal: "Универсальное помещение",
-          shopping: "Торговые площади",
-          storage: "Складское помещение",
-          production: "Производственное помещение",
-          detached: "Отдельностоящее здание",
-          business: "Готовый бизнес"
+          retail: "Торговые площади",
+          warehouse: "Складское помещение",
+          industrial: "Производственное помещение",
+          separate_building: "Отдельностоящее здание",
+          ready_business: "Готовый бизнес"
         }'
       />
       <ComboBox
         v-else
         v-model='rooms_type'
+        label='Комнатность'
         :options='{
           studio: "Студия",
           1: "1-комнатная",
@@ -49,23 +60,40 @@
 <script>
 import Vue from 'vue';
 
-import Select from '@/components/select/index';
-import schema from '@/lib/schema';
+import ComboBox from '@/components/combo_box';
+import Select from '@/components/select';
+
+import { cast } from '@/lib/schema';
 
 export default {
   name: 'SearchForm',
   components: {
+    ComboBox,
     Select
   },
   props: {
     params: { type: Object, required: true }
   },
   data() {
-    return schema.cast(this.params);
+    return cast(this.params);
+  },
+  computed: {
+    rooms_type: {
+      get() {
+        return [
+          ...this.rooms,
+          ...this.type,
+          ...this.layout_type
+        ];
+      },
+      set(values) {
+        console.log(values);
+      }
+    }
   },
   watch: {
     params: function(value, _) {
-      const newData = schema.cast(value);
+      const newData = cast(value);
 
       Object
         .keys(this.$data)
@@ -76,9 +104,12 @@ export default {
         .forEach(entry => Vue.set(this.$data, entry[0], entry[1]));
     }
   },
+  mounted() {
+    console.log(this.$data);
+  },
   methods: {
     search() {
-      this.$emit('search', schema.cast(this.$data));
+      this.$emit('search', cast(this.$data));
     }
   }
 };

@@ -8,8 +8,8 @@
       @blur='blur'
     >
       <span v-if='isFocused || isExpanded' class='outline' />
-      <span class='label'>
-        {{ label }}
+      <span class='label' :class='{ value: !!value }'>
+        {{ value || label }}
       </span>
     </button>
     <div v-if='isExpanded' class='content'>
@@ -26,7 +26,8 @@ export default {
   components: {
   },
   props: {
-    label: { type: String, required: true }
+    value: { type: String, required: false, default: undefined },
+    label: { type: String, required: false, default: undefined }
   },
   data: () => ({
     isExpanded: false,
@@ -112,6 +113,7 @@ export default {
       z-index: 2
 
 .label
+  color: #808080
   background: #fff
   border: 1px solid #d9d9d9
   box-sizing: border-box
@@ -120,6 +122,9 @@ export default {
   line-height: 36px
   padding: 0 36px 0 12px
   position: relative
+
+  &.value
+    color: #000
 
   &:before
     background-image: url('../assets/select/arrow.svg')
@@ -141,4 +146,5 @@ export default {
   margin-top: 6px
   padding: 5px 0
   position: absolute
+  z-index: 1
 </style>

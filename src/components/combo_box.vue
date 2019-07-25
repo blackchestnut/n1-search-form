@@ -1,5 +1,7 @@
 <template>
-  <ExpandableContainer :label='options[value]'>
+  <ExpandableContainer
+    :label='label'
+  >
     <ExpandableItem
       v-for='(optionValue, optionKey) in options'
       :key='optionKey'
@@ -14,14 +16,15 @@ import ExpandableContainer from '@/components/expandable_container';
 import ExpandableItem from '@/components/expandable_item';
 
 export default {
-  name: 'Select',
+  name: 'ComboBox',
   components: {
     ExpandableContainer,
     ExpandableItem
   },
   props: {
+    label: { type: String, required: true },
     options: { type: Object, required: true },
-    value: { type: String, required: false, default: undefined }
+    value: { type: Array, required: true }
   },
   methods: {
     select(value) {

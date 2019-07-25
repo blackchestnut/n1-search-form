@@ -1,4 +1,8 @@
-import { object, string, number, boolean, array } from 'yup';
+import { object, string, number, boolean, array, mixed } from 'yup';
+
+if (process.env.NODE_ENV === 'development') {
+  window.yup = { object, string, number, boolean, array, mixed };
+}
 
 function oneOfOrDefault(value) {
   const isOneOf = this._whitelist.has(value);
@@ -11,7 +15,20 @@ const GeoPoint = array(number())
 
 const Polygon = array(GeoPoint).min(3);
 
-export default object({
+const RUBRIC_TYPES = {
+  flats: ['studija'],
+  commercial: [
+    'office',
+    'universal',
+    'retail',
+    'warehouse',
+    'industrial',
+    'separate_building',
+    'ready_business'
+  ]
+};
+
+const schema = object({
   rubric: string()
     .oneOf(['flats', 'rooms', 'cottage', 'commercial', 'dacha', 'land', 'garages'])
     .default('flats')
@@ -42,18 +59,13 @@ export default object({
   is_newbuilding: boolean().nullable(), // TODO: Уточнить тип,
   rent_period: string().oneOf(['day', 'month']),
   include_suburbs: boolean().default(true),
-  type: array(string()).oneOf(['studio', 'free']), // TODO: Уточнить тип
+  type: array(string()).when('rubric', (other, schema) => (
+    RUBRIC_TYPES[other] ?
+      schema.compact(v => RUBRIC_TYPES[other].includes(v)) :
+      schema
+  )),
   house_type: array(string()), // TODO: Уточнить тип
-  purposes: array(string())
-    .oneOf([
-      'office',
-      'universal',
-      'shopping',
-      'storage',
-      'production',
-      'detached',
-      'business'
-    ]), // TODO: Уточнить тип
+  purposes: array(string()), // TODO: Уточнить тип
   has_balcony: boolean(),
   sewerage_type: string(),
   water_supply_type: string(),
@@ -80,7 +92,12 @@ export default object({
   floor_max: number(),
   floors_count_min: number(),
   floors_count_max: number(),
-  layout_type: array(), // TODO: Уточнить тип
+  layout_type: array(
+    string().oneOf([
+      // flats
+      'layout_type'
+    ])
+  ).compact(),
   author: string(),
   agency_id: number(),
   owner_id: number(),
@@ -119,3 +136,7 @@ export default object({
   in_shopping_center: boolean(),
   own_entrance: boolean()
 });
+
+export function cast(value) {
+  return schema.cast(value, { stripUnknown: true, recursive: true });
+}
