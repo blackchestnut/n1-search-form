@@ -8,7 +8,7 @@
       @click='() => select(option[0])'
     >
       {{ option[1] }}
-      <Checkbox is-checked />
+      <Checkbox :is-checked='isSelected(option[0])' />
     </ExpandableItem>
   </ExpandableContainer>
 </template>
@@ -32,7 +32,14 @@ export default {
   },
   methods: {
     select(value) {
-      this.$emit('input', value);
+      const newValue = this.value.includes(value) ?
+        this.value.filter(v => v !== value) :
+        this.value.concat(value);
+
+      this.$emit('input', newValue);
+    },
+    isSelected(value) {
+      return this.value.includes(value);
     }
   }
 };

@@ -40,6 +40,9 @@ html
   box-sizing: border-box
   font-size: 16px
 
+body
+  min-height: 100vh
+
 #app
   background: #f1f1f1
   height: 360px

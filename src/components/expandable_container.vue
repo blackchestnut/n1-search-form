@@ -21,6 +21,7 @@
 <script>
 import delay from 'delay';
 
+// TODO: blur on esc keypress
 export default {
   name: 'ExpandableContainer',
   components: {
