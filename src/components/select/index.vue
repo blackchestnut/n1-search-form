@@ -1,15 +1,17 @@
 <template>
   <div class='select' :class='{ expanded: isExpanded }'>
-    <div class='outline' :class='{ focused: isFocused || isExpanded }'>
-      <button
-        class='label'
-        @click='toggle'
-        @focus='focus'
-        @blur='blur'
-      >
+    <button
+      class='label-container'
+      :class='{ focused: isExpanded || isFocused }'
+      @click='toggle'
+      @focus='focus'
+      @blur='blur'
+    >
+      <span v-if='isFocused || isExpanded' class='outline' />
+      <span class='label'>
         {{ options[value] }}
-      </button>
-    </div>
+      </span>
+    </button>
     <div v-if='isExpanded' class='options'>
       <SelectItem
         v-for='(optionValue, optionKey) in options'
@@ -78,16 +80,33 @@ export default {
 .select + .select .label
   border-left: none
 
+.label-container
+  position: relative
+  cursor: pointer
+
+  &.focused
+    .label
+      z-index: 3
+
+    .outline
+      background: #b3ddff
+      border-color: #b3ddff
+      border: 3px solid transparent
+      height: calc(100% + 6px)
+      left: -3px
+      position: absolute
+      top: -3px
+      width: calc(100% + 6px)
+      z-index: 2
+
 .label
   background: #fff
   border: 1px solid #d9d9d9
   box-sizing: border-box
-  cursor: pointer
   display: block
   font-size: 17px
   line-height: 36px
   outline: none
-  overflow: hidden
   padding: 0 36px 0 12px
   position: relative
 
@@ -103,13 +122,6 @@ export default {
     transform: translateY(-50%)
     transition: transform 0.25s ease
     width: 20px
-
-.outline
-  border: 3px solid transparent
-
-  &.focused
-    border-color: #b3ddff
-    background: #b3ddff
 
 .options
   background: #fff
