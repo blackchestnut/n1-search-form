@@ -1,6 +1,7 @@
 <template>
   <ExpandableContainer
     :label='label'
+    :value='containerValue'
   >
     <ExpandableItem
       v-for='option in options'
@@ -29,6 +30,14 @@ export default {
     label: { type: String, required: true },
     options: { type: Array, required: true },
     value: { type: Array, required: true }
+  },
+  computed: {
+    containerValue() {
+      console.log(this.value);
+      return this.value
+        .map(v => this.options.find(o => o[0] == v)[1])
+        .join(', ');
+    }
   },
   methods: {
     select(value) {

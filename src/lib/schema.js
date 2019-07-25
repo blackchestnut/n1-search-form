@@ -33,19 +33,19 @@ const LAYOUT_TYPES = ['free'];
 
 export const roomsType = array(string())
   .ensure()
-  .compact(v => ROOM_TYPES.includes(v));
+  .compact(v => !ROOM_TYPES.includes(v));
 
 export const typeType = array(string())
   .ensure()
   .when('rubric', (rubric, schema) => (
     TYPE_TYPES_BY_RUBRIC[rubric] ?
-      schema.compact(v => TYPE_TYPES_BY_RUBRIC[rubric].includes(v)) :
+      schema.compact(v => !TYPE_TYPES_BY_RUBRIC[rubric].includes(v)) :
       schema
   ));
 
 export const layoutType = array(string())
   .ensure()
-  .compact(v => LAYOUT_TYPES.includes(v));
+  .compact(v => !LAYOUT_TYPES.includes(v));
 
 export const schema = object({
   rubric: string()

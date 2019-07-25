@@ -88,9 +88,13 @@ export default {
         ];
       },
       set(value) {
-        this.type = typeType.cast(value, { stripUnknown: true });
-        this.rooms = roomsType.cast(value, { stripUnknown: true });
-        this.layout_type = layoutType.cast(value, { stripUnknown: true });
+        // console.log({ type: this.type, rooms: this.rooms, layout_type: this.layout_type });
+
+        this.type = typeType.cast(value);
+        this.rooms = roomsType.cast(value);
+        this.layout_type = layoutType.cast(value);
+
+        // console.log({ type: this.type, rooms: this.rooms, layout_type: this.layout_type });
       }
     }
   },
