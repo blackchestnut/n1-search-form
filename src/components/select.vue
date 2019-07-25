@@ -1,10 +1,10 @@
 <template>
-  <ExpandableContainer :value='options[value]'>
+  <ExpandableContainer :value='currentOption[1]'>
     <ExpandableItem
-      v-for='(optionValue, optionKey) in options'
-      :key='optionKey'
-      :label='optionValue'
-      @click='() => select(optionKey)'
+      v-for='option in options'
+      :key='option[0]'
+      :label='option[1]'
+      @click='() => select(option[0])'
     />
   </ExpandableContainer>
 </template>
@@ -20,8 +20,13 @@ export default {
     ExpandableItem
   },
   props: {
-    options: { type: Object, required: true },
+    options: { type: Array, required: true },
     value: { type: String, required: false, default: undefined }
+  },
+  computed: {
+    currentOption() {
+      return this.options.find(v => v[0] == this.value);
+    }
   },
   methods: {
     select(value) {

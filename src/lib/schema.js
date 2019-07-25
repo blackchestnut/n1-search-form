@@ -55,11 +55,11 @@ const schema = object({
   addresses: array(object()), // TODO: Уточнить тип,
   metro_time: number(),
   transport_time: object(), // TODO: Уточнить тип,
-  rooms: array(string().oneOf(['1', '2', '3', '4', '5+'])).compact(),
+  rooms: array(string().oneOf(['1', '2', '3', '4', '5+'])).ensure(),
   is_newbuilding: boolean().nullable(), // TODO: Уточнить тип,
   rent_period: string().oneOf(['day', 'month']),
   include_suburbs: boolean().default(true),
-  type: array(string()).when('rubric', (other, schema) => (
+  type: array(string()).ensure().when('rubric', (other, schema) => (
     RUBRIC_TYPES[other] ?
       schema.compact(v => RUBRIC_TYPES[other].includes(v)) :
       schema
@@ -97,7 +97,7 @@ const schema = object({
       // flats
       'layout_type'
     ])
-  ).compact(),
+  ).ensure(),
   author: string(),
   agency_id: number(),
   owner_id: number(),

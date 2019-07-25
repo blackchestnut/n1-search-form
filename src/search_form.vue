@@ -3,52 +3,52 @@
     <div class='basic-fields'>
       <Select
         v-model='deal_type'
-        :options='{
-          sell: "Продажа",
-          rent_out: "Аренда"
-        }'
+        :options='[
+          ["sell", "Продажа"],
+          ["rent_out", "Аренда"]
+        ]'
       />
     </div>
     <div class='basic-fields'>
       <Select
         v-model='rubric'
-        :options='{
-          flats: "Квартиры",
-          rooms: "Комнаты",
-          cottage: "Коттеджи",
-          commercial: "Коммерческая",
-          dacha: "Дачи, садовые участки",
-          land: "Земля",
-          garages: "Гаражи, парковки"
-        }'
+        :options='[
+          ["flats", "Квартиры"],
+          ["rooms", "Комнаты"],
+          ["cottage", "Коттеджи"],
+          ["commercial", "Коммерческая"],
+          ["dacha", "Дачи, садовые участки"],
+          ["land", "Земля"],
+          ["garages", "Гаражи, парковки"]
+        ]'
       />
       <ComboBox
         v-if='rubric === "commercial"'
         v-model='type'
         label='Тип помещения'
-        :options='{
-          office: "Офисное помещение",
-          universal: "Универсальное помещение",
-          retail: "Торговые площади",
-          warehouse: "Складское помещение",
-          industrial: "Производственное помещение",
-          separate_building: "Отдельностоящее здание",
-          ready_business: "Готовый бизнес"
-        }'
+        :options='[
+          ["office", "Офисное помещение"],
+          ["universal", "Универсальное помещение"],
+          ["retail", "Торговые площади"],
+          ["warehouse", "Складское помещение"],
+          ["industrial", "Производственное помещение"],
+          ["separate_building", "Отдельностоящее здание"],
+          ["ready_business", "Готовый бизнес"]
+        ]'
       />
       <ComboBox
         v-else
         v-model='rooms_type'
         label='Комнатность'
-        :options='{
-          studio: "Студия",
-          1: "1-комнатная",
-          2: "2-комнатная",
-          3: "3-комнатная",
-          4: "4-комнатная",
-          "5+": "5-комнатная и более",
-          free: "Свободная планировка"
-        }'
+        :options='[
+          ["studio", "Студия"],
+          ["1", "1-комнатная"],
+          ["2", "2-комнатная"],
+          ["3", "3-комнатная"],
+          ["4", "4-комнатная"],
+          ["5+", "5-комнатная и более"],
+          ["free", "Свободная планировка"]
+        ]'
       />
     </div>
     <div class='controls'>
@@ -81,8 +81,8 @@ export default {
     rooms_type: {
       get() {
         return [
-          ...this.rooms,
           ...this.type,
+          ...this.rooms,
           ...this.layout_type
         ];
       },
@@ -105,7 +105,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$data);
+    console.log('data', this.$data);
   },
   methods: {
     search() {

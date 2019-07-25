@@ -3,10 +3,10 @@
     :label='label'
   >
     <ExpandableItem
-      v-for='(optionValue, optionKey) in options'
-      :key='optionKey'
-      :label='optionValue'
-      @click='() => select(optionKey)'
+      v-for='option in options'
+      :key='option[0]'
+      :label='option[1]'
+      @click='() => select(option[0])'
     />
   </ExpandableContainer>
 </template>
@@ -23,7 +23,7 @@ export default {
   },
   props: {
     label: { type: String, required: true },
-    options: { type: Object, required: true },
+    options: { type: Array, required: true },
     value: { type: Array, required: true }
   },
   methods: {
