@@ -1,10 +1,16 @@
 <template>
   <div id='app'>
-    <div class='inner'>
-      <SearchForm
-        :params='params'
-        @search='search'
-      />
+    <div class='header'>
+      <div class='container'>
+        <SearchForm
+          :params='params'
+          @search='search'
+        />
+      </div>
+    </div>
+    <div class='container'>
+      <b>JSON</b>
+      <textarea v-model.lazy='jsonParams' rows='20' />
     </div>
   </div>
 </template>
@@ -20,9 +26,19 @@ export default {
   data: () => ({
     params: {}
   }),
+  computed: {
+    jsonParams: {
+      get() {
+        return JSON.stringify(this.params);
+      },
+      set(value) {
+        this.params = JSON.parse(value);
+      }
+    }
+  },
   methods: {
     search(params) {
-      console.log('search', params);
+      this.params = params;
     }
   }
 };
@@ -43,12 +59,15 @@ html
 body
   min-height: 100vh
 
-#app
+.header
   background: #f1f1f1
-  height: 360px
-  padding: 264px 60px 12px
+  padding: 210px 60px 12px
+  margin-bottom: 60px
 
-.inner
+.container
   max-width: 906px
   margin: 0 auto
+
+textarea
+  width: 100%
 </style>
