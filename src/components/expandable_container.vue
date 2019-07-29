@@ -1,5 +1,8 @@
 <template>
-  <div class='expandable-container' :class='{ expanded: isExpanded }'>
+  <div
+    class='expandable-container'
+    :class='{ expanded: isExpanded }'
+  >
     <button
       class='label-container'
       :class='{ focused: isExpanded || isFocused }'
@@ -68,6 +71,8 @@ export default {
 <style scoped lang='sass'>
 .expandable-container
   position: relative
+  flex-grow: 1
+  min-width: 0
 
   &:first-child
     .outline
@@ -97,6 +102,7 @@ export default {
   cursor: pointer
   outline: none
   position: relative
+  width: 100%
 
   &.focused
     .label
@@ -123,6 +129,11 @@ export default {
   line-height: 36px
   padding: 0 36px 0 12px
   position: relative
+
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
+
 
   &.value
     color: #000

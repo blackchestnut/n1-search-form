@@ -1,7 +1,6 @@
 <template>
   <ExpandableContainer
-    label='Площадь'
-    :value='containerValue'
+    label='Адрес, ЖК'
   >
     not implemented yet
   </ExpandableContainer>
@@ -11,17 +10,13 @@
 import ExpandableContainer from '@/components/expandable_container';
 
 export default {
-  name: 'FieldArea',
+  name: 'FieldAddress',
   components: {
     ExpandableContainer
-  },
-  computed: {
-    containerValue() {
-      return null;
-    }
   }
 };
 </script>
 
 <style scoped lang='sass'>
 </style>
+

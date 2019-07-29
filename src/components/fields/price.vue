@@ -3,7 +3,7 @@
     label='Цена'
     :value='containerValue'
   >
-    component
+    not implemented yet
   </ExpandableContainer>
 </template>
 

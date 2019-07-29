@@ -24,6 +24,7 @@
       />
       <FieldPrice v-if='isAllowed("price")' />
       <FieldArea v-if='isAllowed("area")' />
+      <FieldAddress v-if='isAllowed("metro")' class='metro' />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
@@ -34,6 +35,7 @@
 <script>
 import Vue from 'vue';
 
+import FieldAddress from '@/components/fields/address';
 import FieldArea from '@/components/fields/area';
 import FieldRoomsType from '@/components/fields/rooms_type';
 import FieldRubric from '@/components/fields/rubric';
@@ -47,10 +49,11 @@ import { cast } from '@/lib/schema';
 export default {
   name: 'SearchForm',
   components: {
+    FieldAddress,
     FieldArea,
+    FieldPrice,
     FieldRoomsType,
     FieldRubric,
-    FieldPrice,
     FieldType,
     Select
   },
@@ -120,6 +123,15 @@ export default {
 .basic-fields
   display: flex
   margin-bottom: 12px
+
+  .expandable-container
+    // it is impossible to have both flex-grow with fixed with and text with ellipsis
+    // so I have to specify min-width in percents
+    min-width: 17.33%
+
+    &.metro
+      flex-grow: 1.77
+      min-width: 30.67%
 
 .controls
   display: flex
