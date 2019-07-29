@@ -22,19 +22,9 @@
           ["garages", "Гаражи, парковки"]
         ]'
       />
-      <Combobox
+      <FieldType
         v-if='isAllowed("type")'
         v-model='type'
-        label='Тип помещения'
-        :options='[
-          ["office", "Офисное помещение"],
-          ["universal", "Универсальное помещение"],
-          ["retail", "Торговые площади"],
-          ["warehouse", "Складское помещение"],
-          ["industrial", "Производственное помещение"],
-          ["separate_building", "Отдельностоящее здание"],
-          ["ready_business", "Готовый бизнес"]
-        ]'
       />
       <Combobox
         v-if='isAllowed("rooms_type")'
@@ -50,8 +40,8 @@
           ["free", "Свободная планировка"]
         ]'
       />
-      <Price label='Цена' />
-      <Area label='Площадь' />
+      <Price v-if='isAllowed("price")' />
+      <Area v-if='isAllowed("area")' />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
@@ -66,6 +56,7 @@ import Area from '@/components/fields/area';
 import Combobox from '@/components/combobox';
 import Price from '@/components/fields/price';
 import Select from '@/components/select';
+import FieldType from '@/components/fields/type';
 
 import { isAllowed } from '@/form.config';
 import { cast } from '@/lib/schema';
@@ -76,7 +67,8 @@ export default {
     Area,
     Combobox,
     Price,
-    Select
+    Select,
+    FieldType
   },
   props: {
     params: { type: Object, required: true }
@@ -110,7 +102,7 @@ export default {
     }
   },
   mounted() {
-    console.log('data', this.$data);
+    // console.log('data', this.$data);
   },
   methods: {
     isAllowed(field) {
