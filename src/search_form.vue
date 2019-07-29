@@ -50,6 +50,8 @@
           ["free", "Свободная планировка"]
         ]'
       />
+      <Price label='Цена' />
+      <Area label='Площадь' />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
@@ -60,7 +62,9 @@
 <script>
 import Vue from 'vue';
 
+import Area from '@/components/fields/area';
 import Combobox from '@/components/combobox';
+import Price from '@/components/fields/price';
 import Select from '@/components/select';
 
 import { cast } from '@/lib/schema';
@@ -68,14 +72,16 @@ import { cast } from '@/lib/schema';
 export default {
   name: 'SearchForm',
   components: {
+    Area,
     Combobox,
+    Price,
     Select
   },
   props: {
     params: { type: Object, required: true }
   },
   data() {
-    // NOTE: may be put params into data.params
+    // NOTE: think about puttig params into $data.data instead of putting directly into $data
     return cast(this.params);
   },
   computed: {

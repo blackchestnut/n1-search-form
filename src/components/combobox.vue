@@ -33,7 +33,6 @@ export default {
   },
   computed: {
     containerValue() {
-      console.log(this.value);
       return this.value
         .map(v => this.options.find(o => o[0] == v)[1])
         .join(', ');
