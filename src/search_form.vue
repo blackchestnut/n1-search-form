@@ -10,6 +10,11 @@
       />
     </div>
     <div class='basic-fields'>
+      <!--
+        Глеб: У нас нас суммарно более 50 фильтров,
+        когда мы добавим их все сюда получится очень жирный компонент,
+        как мы будем с этим справляться?
+      -->
       <FieldRubric
         v-if='isAllowed("rubric")'
         v-model='rubric'
@@ -62,6 +67,8 @@ export default {
   },
   data() {
     // NOTE: think about puttig params into $data.data instead of putting directly into $data
+    // Глеб: Если мы начнем типы в рантайме приводить, то на сервере наша нода захлебнется.
+    // Проверено :)
     return cast(this.params);
   },
   computed: {

@@ -13,7 +13,9 @@ const DISABLED_IN_RUBRIC = {
     commercial: true
   }
 };
-
+// Глеб: В целом, идея понятна, но разобраться довольно сложно куда что добавлять.
+// Мы можем сделать этот код более декларативным?
+// При добавлении новых фильтров будет довольно сложно разобраться какой из фильтров в какой рубрике доступен 
 export function isAllowed(field, dealType, rubric) {
   if (field in ALLOWED_IN_DEAL_TYPE) {
     return ALLOWED_IN_DEAL_TYPE[field][dealType];
