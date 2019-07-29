@@ -1,6 +1,6 @@
 <template>
   <Combobox
-    v-model='type'
+    v-model='model'
     label='Тип помещения'
     :options='[
       ["office", "Офисное помещение"],
@@ -26,7 +26,7 @@ export default {
     value: { type: Array, required: true }
   },
   computed: {
-    type: {
+    model: {
       get() {
         return this.value;
       },

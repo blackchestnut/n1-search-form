@@ -10,17 +10,9 @@
       />
     </div>
     <div class='basic-fields'>
-      <Select
+      <FieldRubric
+        v-if='isAllowed("rubric")'
         v-model='rubric'
-        :options='[
-          ["flats", "Квартиры"],
-          ["rooms", "Комнаты"],
-          ["cottage", "Коттеджи"],
-          ["commercial", "Коммерческая"],
-          ["dacha", "Дачи, садовые участки"],
-          ["land", "Земля"],
-          ["garages", "Гаражи, парковки"]
-        ]'
       />
       <FieldType
         v-if='isAllowed("type")'
@@ -54,6 +46,7 @@ import Vue from 'vue';
 
 import Combobox from '@/components/combobox';
 import FieldArea from '@/components/fields/area';
+import FieldRubric from '@/components/fields/rubric';
 import FieldPrice from '@/components/fields/price';
 import FieldType from '@/components/fields/type';
 import Select from '@/components/select';
@@ -66,6 +59,7 @@ export default {
   components: {
     Combobox,
     FieldArea,
+    FieldRubric,
     FieldPrice,
     FieldType,
     Select
