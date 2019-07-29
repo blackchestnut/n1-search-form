@@ -18,19 +18,9 @@
         v-if='isAllowed("type")'
         v-model='type'
       />
-      <Combobox
+      <FieldRoomsType
         v-if='isAllowed("rooms_type")'
         v-model='rooms_type'
-        label='Комнатность'
-        :options='[
-          ["studija", "Студия"],
-          ["1", "1-комнатная"],
-          ["2", "2-комнатная"],
-          ["3", "3-комнатная"],
-          ["4", "4-комнатная"],
-          ["5+", "5-комнатная и более"],
-          ["free", "Свободная планировка"]
-        ]'
       />
       <FieldPrice v-if='isAllowed("price")' />
       <FieldArea v-if='isAllowed("area")' />
@@ -44,8 +34,8 @@
 <script>
 import Vue from 'vue';
 
-import Combobox from '@/components/combobox';
 import FieldArea from '@/components/fields/area';
+import FieldRoomsType from '@/components/fields/rooms_type';
 import FieldRubric from '@/components/fields/rubric';
 import FieldPrice from '@/components/fields/price';
 import FieldType from '@/components/fields/type';
@@ -57,8 +47,8 @@ import { cast } from '@/lib/schema';
 export default {
   name: 'SearchForm',
   components: {
-    Combobox,
     FieldArea,
+    FieldRoomsType,
     FieldRubric,
     FieldPrice,
     FieldType,
