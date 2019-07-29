@@ -62,6 +62,9 @@ export default {
     return cast(this.params);
   },
   computed: {
+    // NOTE: there will be a lot of such logic for other fields
+    // probably need to add vuex store into project
+    /// so this logic can be extracted into store
     rooms_type: {
       get() {
         return [
