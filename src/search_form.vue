@@ -63,7 +63,7 @@ import Vue from 'vue';
 import Combobox from '@/components/combobox';
 import Select from '@/components/select';
 
-import { cast, roomsType, typeType, layoutType } from '@/lib/schema';
+import { cast } from '@/lib/schema';
 
 export default {
   name: 'SearchForm',
@@ -88,18 +88,25 @@ export default {
         ];
       },
       set(value) {
-        // console.log({ type: this.type, rooms: this.rooms, layout_type: this.layout_type });
-
-        this.type = typeType.cast(value);
-        this.rooms = roomsType.cast(value);
-        this.layout_type = layoutType.cast(value);
-
-        // console.log({ type: this.type, rooms: this.rooms, layout_type: this.layout_type });
+        this.changeParams({
+          ...this.$data,
+          type: value,
+          rooms:  value,
+          layout_type: value
+        });
       }
     }
   },
   watch: {
     params: function(value, _) {
+      this.changeParams(value);
+    }
+  },
+  mounted() {
+    console.log('data', this.$data);
+  },
+  methods: {
+    changeParams(value) {
       const newData = cast(value);
 
       Object
@@ -109,12 +116,7 @@ export default {
       Object
         .entries(newData)
         .forEach(entry => Vue.set(this.$data, entry[0], entry[1]));
-    }
-  },
-  mounted() {
-    console.log('data', this.$data);
-  },
-  methods: {
+    },
     search() {
       this.$emit('search', cast(this.$data));
     }

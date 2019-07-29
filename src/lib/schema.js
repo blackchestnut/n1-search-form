@@ -31,22 +31,6 @@ const TYPE_TYPES_BY_RUBRIC = {
 const ROOM_TYPES = ['1', '2', '3', '4', '5+'];
 const LAYOUT_TYPES = ['free'];
 
-export const roomsType = array(string())
-  .ensure()
-  .compact(v => !ROOM_TYPES.includes(v));
-
-export const typeType = array(string())
-  .ensure()
-  .when('rubric', (rubric, schema) => (
-    TYPE_TYPES_BY_RUBRIC[rubric] ?
-      schema.compact(v => !TYPE_TYPES_BY_RUBRIC[rubric].includes(v)) :
-      schema
-  ));
-
-export const layoutType = array(string())
-  .ensure()
-  .compact(v => !LAYOUT_TYPES.includes(v));
-
 export const schema = object({
   rubric: string()
     .oneOf(['flats', 'rooms', 'cottage', 'commercial', 'dacha', 'land', 'garages'])
@@ -74,11 +58,19 @@ export const schema = object({
   // addresses: array(object()), // TODO: Уточнить тип,
   // metro_time: number(),
   // transport_time: object(), // TODO: Уточнить тип,
-  rooms: roomsType,
+  rooms: array(string())
+    .ensure()
+    .compact(v => !ROOM_TYPES.includes(v)),
   // is_newbuilding: boolean().nullable(), // TODO: Уточнить тип,
   // rent_period: string().oneOf(['day', 'month']),
   // include_suburbs: boolean().default(true),
-  type: typeType,
+  type: array(string())
+    .ensure()
+    .when('rubric', (rubric, schema) => (
+      TYPE_TYPES_BY_RUBRIC[rubric] ?
+        schema.compact(v => !TYPE_TYPES_BY_RUBRIC[rubric].includes(v)) :
+        schema
+    )),
   // house_type: array(string()), // TODO: Уточнить тип
   // purposes: array(string()), // TODO: Уточнить тип
   // has_balcony: boolean(),
@@ -107,7 +99,9 @@ export const schema = object({
   // floor_max: number(),
   // floors_count_min: number(),
   // floors_count_max: number(),
-  layout_type: layoutType
+  layout_type: array(string())
+    .ensure()
+    .compact(v => !LAYOUT_TYPES.includes(v))
   // author: string(),
   // agency_id: number(),
   // owner_id: number(),
