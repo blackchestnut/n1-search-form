@@ -1,6 +1,6 @@
 <template>
   <ExpandableContainer
-    :label='label'
+    label='Площадь'
     :value='containerValue'
   >
     component
@@ -11,12 +11,9 @@
 import ExpandableContainer from '@/components/expandable_container';
 
 export default {
-  name: 'Area',
+  name: 'FieldArea',
   components: {
     ExpandableContainer
-  },
-  props: {
-    label: { type: String, required: true }
   },
   computed: {
     containerValue() {

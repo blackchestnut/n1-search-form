@@ -1,6 +1,6 @@
 <template>
   <ExpandableContainer
-    :label='label'
+    label='Цена'
     :value='containerValue'
   >
     component
@@ -11,12 +11,9 @@
 import ExpandableContainer from '@/components/expandable_container';
 
 export default {
-  name: 'Price',
+  name: 'FieldPrice',
   components: {
     ExpandableContainer
-  },
-  props: {
-    label: { type: String, required: true }
   },
   computed: {
     containerValue() {

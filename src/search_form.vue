@@ -40,8 +40,8 @@
           ["free", "Свободная планировка"]
         ]'
       />
-      <Price v-if='isAllowed("price")' />
-      <Area v-if='isAllowed("area")' />
+      <FieldPrice v-if='isAllowed("price")' />
+      <FieldArea v-if='isAllowed("area")' />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
@@ -52,11 +52,11 @@
 <script>
 import Vue from 'vue';
 
-import Area from '@/components/fields/area';
 import Combobox from '@/components/combobox';
-import Price from '@/components/fields/price';
-import Select from '@/components/select';
+import FieldArea from '@/components/fields/area';
+import FieldPrice from '@/components/fields/price';
 import FieldType from '@/components/fields/type';
+import Select from '@/components/select';
 
 import { isAllowed } from '@/form.config';
 import { cast } from '@/lib/schema';
@@ -64,11 +64,11 @@ import { cast } from '@/lib/schema';
 export default {
   name: 'SearchForm',
   components: {
-    Area,
     Combobox,
-    Price,
-    Select,
-    FieldType
+    FieldArea,
+    FieldPrice,
+    FieldType,
+    Select
   },
   props: {
     params: { type: Object, required: true }
