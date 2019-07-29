@@ -23,7 +23,7 @@
         ]'
       />
       <Combobox
-        v-if='rubric === "commercial"'
+        v-if='isAllowed("type")'
         v-model='type'
         label='Тип помещения'
         :options='[
@@ -37,7 +37,7 @@
         ]'
       />
       <Combobox
-        v-else
+        v-if='isAllowed("rooms_type")'
         v-model='rooms_type'
         label='Комнатность'
         :options='[
@@ -67,6 +67,7 @@ import Combobox from '@/components/combobox';
 import Price from '@/components/fields/price';
 import Select from '@/components/select';
 
+import { isAllowed } from '@/form.config';
 import { cast } from '@/lib/schema';
 
 export default {
@@ -112,6 +113,9 @@ export default {
     console.log('data', this.$data);
   },
   methods: {
+    isAllowed(field) {
+      return isAllowed(field, this.deal_type, this.rubric);
+    },
     changeParams(value) {
       const newData = cast(value);
 
