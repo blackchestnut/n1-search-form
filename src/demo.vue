@@ -1,5 +1,9 @@
 <template>
   <div id='app'>
+    <div class='container'>
+      <b>Config</b>
+      <textarea v-model.lazy='jsonFormConfig' rows='20' />
+    </div>
     <div class='header'>
       <div class='container'>
         <SearchForm
@@ -24,12 +28,51 @@ export default {
     SearchForm
   },
   data: () => ({
-    params: {}
+    formConfig: {
+      // двухуровневый хеш, где перечислены все возможные варианты полей:
+      //   на первом уровне deal_type, на втором rubric,
+      //   в качестве значений - список полей массивом строк.
+      //   если понадобится кастомизация того, в каком месте должно отображаться
+      //   поле, то строки можно заменить на хеши, где будут лежать настройки
+      //   кастомизации
+      //   {
+      //     sell: {
+      //       flats: ['rubric', 'rooms_type']
+      //       commercial: ['rubric', 'type']
+      //     },
+      //     default: ['rubric', 'type']
+      //   }
+      //  в финальном варианте, двухуровневый хеш я заменю на одноуровневый,
+      //    где в качестве ключа будет выступать хеш со списком полей
+      //  {
+      //    [{ rubric: 'commercial', deal_type: 'sell' }]: ['rubric', 'type'],
+      //    default: ['rubric', 'rooms_type']
+      //  }
+      //  это даст больше возможностей для кастомизации, но для текущей демки
+      //    это вариант не удобен, т.к. хеш в качестве ключа в хеше не
+      //    сериализуются в json, что мешает использовать форму настроек
+      //    на этой странице
+      sell: {
+        commercial: ['rubric', 'type']
+      },
+      default: ['rubric', 'rooms_type']
+    },
+    params: {
+      deal_type: 'sell'
+    }
   }),
   computed: {
+    jsonFormConfig: {
+      get() {
+        return JSON.stringify(this.formConfig, undefined, 2);
+      },
+      set(value) {
+        this.formConfig = JSON.parse(value);
+      }
+    },
     jsonParams: {
       get() {
-        return JSON.stringify(this.params);
+        return JSON.stringify(this.params, undefined, 2);
       },
       set(value) {
         this.params = JSON.parse(value);
@@ -61,7 +104,7 @@ body
 
 .header
   background: #f1f1f1
-  padding: 210px 60px 12px
+  padding: 60px 60px 12px
   margin-bottom: 60px
 
 .container
