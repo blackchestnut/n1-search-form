@@ -54,9 +54,9 @@ export default {
       //    сериализуются в json, что мешает использовать форму настроек
       //    на этой странице
       sell: {
-        commercial: ['rubric', 'type']
+        commercial: ['rubric', 'type', 'price', 'area']
       },
-      defaults: ['rubric', 'rooms_type']
+      defaults: ['rubric', 'rooms_type', 'price', 'area']
     },
     params: {
       deal_type: 'sell',

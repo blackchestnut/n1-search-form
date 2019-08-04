@@ -2,15 +2,7 @@
   <Combobox
     v-model='model'
     label='Тип помещения'
-    :options='[
-      ["office", "Офисное помещение"],
-      ["universal", "Универсальное помещение"],
-      ["retail", "Торговые площади"],
-      ["warehouse", "Складское помещение"],
-      ["industrial", "Производственное помещение"],
-      ["separate_building", "Отдельностоящее здание"],
-      ["ready_business", "Готовый бизнес"]
-    ]'
+    :options='options'
   />
 </template>
 
@@ -25,10 +17,26 @@ export default {
   props: {
     value: { type: Array, required: true }
   },
+  data: () => ({
+    options: [
+      ['office', 'Офисное помещение'],
+      ['universal', 'Универсальное помещение'],
+      ['retail', 'Торговые площади'],
+      ['warehouse', 'Складское помещение'],
+      ['industrial', 'Производственное помещение'],
+      ['separate_building', 'Отдельностоящее здание'],
+      ['ready_business', 'Готовый бизнес']
+    ]
+  }),
   computed: {
+    // need to filter values from other rubrics
+    fixedValue() {
+      const allowedKeys = this.options.map(option => option[0]);
+      return this.value.filter(key => allowedKeys.includes(key));
+    },
     model: {
       get() {
-        return this.value;
+        return this.fixedValue;
       },
       set(value) {
         this.$emit('input', value);

@@ -18,11 +18,6 @@
         :value='_self[field]'
         @input='(value) => _self[field] = value'
       />
-      <!--FieldRubric v-model='rubric' />
-      <FieldType v-model='type' />
-      <FieldRoomsType v-model='rooms_type' />
-      <FieldPrice />
-      <FieldArea /-->
       <FieldAddress class='metro' />
     </div>
     <div class='controls'>
