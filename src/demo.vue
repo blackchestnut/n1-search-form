@@ -8,6 +8,7 @@
       <div class='container'>
         <SearchForm
           :params='params'
+          :config='formConfig'
           @search='search'
         />
       </div>
@@ -40,13 +41,13 @@ export default {
       //       flats: ['rubric', 'rooms_type']
       //       commercial: ['rubric', 'type']
       //     },
-      //     default: ['rubric', 'type']
+      //     defaults: ['rubric', 'type']
       //   }
       //  в финальном варианте, двухуровневый хеш я заменю на одноуровневый,
       //    где в качестве ключа будет выступать хеш со списком полей
       //  {
       //    [{ rubric: 'commercial', deal_type: 'sell' }]: ['rubric', 'type'],
-      //    default: ['rubric', 'rooms_type']
+      //    defaults: ['rubric', 'rooms_type']
       //  }
       //  это даст больше возможностей для кастомизации, но для текущей демки
       //    это вариант не удобен, т.к. хеш в качестве ключа в хеше не
@@ -55,10 +56,14 @@ export default {
       sell: {
         commercial: ['rubric', 'type']
       },
-      default: ['rubric', 'rooms_type']
+      defaults: ['rubric', 'rooms_type']
     },
     params: {
-      deal_type: 'sell'
+      deal_type: 'sell',
+      rubric: 'flats',
+      type: [],
+      rooms: [],
+      layout_type: []
     }
   }),
   computed: {

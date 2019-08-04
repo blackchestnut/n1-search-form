@@ -10,26 +10,20 @@
       />
     </div>
     <div class='basic-fields'>
-      <!--
-        Глеб: У нас нас суммарно более 50 фильтров,
-        когда мы добавим их все сюда получится очень жирный компонент,
-        как мы будем с этим справляться?
-      -->
-      <FieldRubric
-        v-if='isAllowed("rubric")'
-        v-model='rubric'
+      <component
+        :is='fieldComponent(field)'
+        v-for='field in fields'
+        :key='field'
+        :v-model='field'
+        :value='_self[field]'
+        @input='(value) => _self[field] = value'
       />
-      <FieldType
-        v-if='isAllowed("type")'
-        v-model='type'
-      />
-      <FieldRoomsType
-        v-if='isAllowed("rooms_type")'
-        v-model='rooms_type'
-      />
-      <FieldPrice v-if='isAllowed("price")' />
-      <FieldArea v-if='isAllowed("area")' />
-      <FieldAddress v-if='isAllowed("metro")' class='metro' />
+      <!--FieldRubric v-model='rubric' />
+      <FieldType v-model='type' />
+      <FieldRoomsType v-model='rooms_type' />
+      <FieldPrice />
+      <FieldArea /-->
+      <FieldAddress class='metro' />
     </div>
     <div class='controls'>
       <button class='submit' @click='search'>Показать</button>
@@ -40,38 +34,31 @@
 <script>
 import Vue from 'vue';
 
-import FieldAddress from '@/components/fields/address';
-import FieldArea from '@/components/fields/area';
-import FieldRoomsType from '@/components/fields/rooms_type';
-import FieldRubric from '@/components/fields/rubric';
-import FieldPrice from '@/components/fields/price';
-import FieldType from '@/components/fields/type';
 import Select from '@/components/select';
+import * as fields from './fields';
 
-import { isAllowed } from '@/form.config';
 import { cast } from '@/lib/schema';
 
 export default {
   name: 'SearchForm',
   components: {
-    FieldAddress,
-    FieldArea,
-    FieldPrice,
-    FieldRoomsType,
-    FieldRubric,
-    FieldType,
+    ...fields,
     Select
   },
   props: {
+    config: { type: Object, required: true },
     params: { type: Object, required: true }
   },
   data() {
-    // NOTE: think about puttig params into vuex
     return this.params;
   },
   computed: {
+    fields() {
+      return this.config?.[this.deal_type]?.[this.rubric] ||
+        this.config.defaults;
+    },
     // NOTE: there will be a lot of such logic for other fields
-    // probably need to add vuex store into project
+    // probably will need to add vuex store into project
     // so this logic can be extracted into store
     rooms_type: {
       get() {
@@ -95,8 +82,18 @@ export default {
     // console.log('data', this.$data);
   },
   methods: {
-    isAllowed(field) {
-      return isAllowed(field, this.deal_type, this.rubric);
+    fieldComponent(field) {
+      const componentName = 'Field' + field.replace(
+        /(?:_|\b)[a-z]/g,
+        match => match.replace('_', '').toUpperCase()
+      );
+
+      if (process.env.NODE_ENV === 'development' &&
+          !this.$options.components[componentName]) {
+        alert(`Component ${componentName} is not registered`);
+      }
+
+      return this.$options.components[componentName];
     },
     changeParams(value) {
       const newData = cast(value);
