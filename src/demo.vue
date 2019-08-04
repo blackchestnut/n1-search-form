@@ -14,7 +14,7 @@
     </div>
     <div class='container'>
       <b>JSON</b>
-      <textarea v-model.lazy='jsonParams' rows='20' />
+      <textarea v-model.lazy='jsonParams' readonly rows='20' />
     </div>
   </div>
 </template>
@@ -113,4 +113,8 @@ body
 
 textarea
   width: 100%
+
+  &[readonly]
+    background: #f5f5f5
+    outline: none
 </style>

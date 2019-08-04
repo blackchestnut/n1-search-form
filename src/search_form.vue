@@ -66,15 +66,13 @@ export default {
     params: { type: Object, required: true }
   },
   data() {
-    // NOTE: think about puttig params into $data.data instead of putting directly into $data
-    // Глеб: Если мы начнем типы в рантайме приводить, то на сервере наша нода захлебнется.
-    // Проверено :)
-    return cast(this.params);
+    // NOTE: think about puttig params into vuex
+    return this.params;
   },
   computed: {
     // NOTE: there will be a lot of such logic for other fields
     // probably need to add vuex store into project
-    /// so this logic can be extracted into store
+    // so this logic can be extracted into store
     rooms_type: {
       get() {
         return [
@@ -91,11 +89,6 @@ export default {
           layout_type: value
         });
       }
-    }
-  },
-  watch: {
-    params: function(value, _) {
-      this.changeParams(value);
     }
   },
   mounted() {
